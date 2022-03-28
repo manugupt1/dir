@@ -1,5 +1,5 @@
 // Package dir provides additional directory related functions
-// on top of os file functions functions.
+// on top of Go std lib functions.
 package dir
 
 import (
@@ -10,6 +10,10 @@ import (
 
 // IsEmpty checks if a directory is empty or not.
 // It returns true if a directory is empty.
+// It provides constant time for ensuring if  dir
+// is empty or not and helps an user to inadvertantly
+// use f.Readdirnames(-1) that can lead to memory leaks
+// when large number of files are present.
 func IsEmpty(path string) (bool, error) {
 
 	fInfo, err := os.Stat(path)
